@@ -3,7 +3,7 @@ var Background = function() {
     POLLING_INTERVAL = 10000,
     ANALYTICS_INTERVAL = 60000,
     CODESHIP_URL = 'https://codeship.com/api/v1/projects.json',
-    FAKE_URL = 'https://localhost:6060/projects.json',
+    FAKE_URL = 'http://localhost:8080/projects_fake.json',
     URL = CODESHIP_URL,
 
     buildWatcher,
