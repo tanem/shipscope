@@ -52,6 +52,11 @@ module.exports = function(grunt) {
           ]
         }
       }
+    },
+
+    watch: {
+      files: ['app/**/*.js', 'app/**/*.css', 'app/**/*.html'],
+      tasks: ['build']
     }
   })
 
@@ -59,6 +64,7 @@ module.exports = function(grunt) {
   grunt.loadNpmTasks('grunt-contrib-compress')
   grunt.loadNpmTasks('grunt-contrib-uglify')
   grunt.loadNpmTasks('grunt-contrib-clean')
+  grunt.loadNpmTasks('grunt-contrib-watch')
 
   grunt.registerTask('test', ['clean', 'uglify', 'karma'])
   grunt.registerTask('build', ['clean', 'uglify', 'compress'])
