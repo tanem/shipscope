@@ -55,8 +55,12 @@ module.exports = function(grunt) {
     },
 
     watch: {
-      files: ['app/**/*.js', 'app/**/*.css', 'app/**/*.html'],
-      tasks: ['build']
+      files: [
+        'app/js/**/*.js',
+        'app/css/**/*.css',
+        'app/**/*.html',
+      ],
+      tasks: ['clean', 'uglify']
     }
   })
 

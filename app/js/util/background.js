@@ -60,14 +60,6 @@ var Background = function() {
 
     fetchProjectsFromCodeship = function() {
       if (options && options.api_key != undefined) {
-        console.debug('fetch!');
-        // if (FAKE) {
-        //   fetchFakeProjects()
-        //   getShipscopeSummary()
-        //   if (intercom) intercom.postMessage({type: 'api_ok'})
-        //   return
-        // }
-
         var params = 'api_key=' + options.api_key
 
         $.getJSON(URL, params)
