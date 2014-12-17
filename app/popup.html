@@ -3,6 +3,7 @@
   <head>
     <title>Shipscope</title>
     <link rel='stylesheet' href="css/bootstrap/bootstrap.min.css">
+    <link rel='stylesheet' href="css/bootstrap/bootstrap-switch.min.css">
     <link rel='stylesheet' href="css/shipscope.css">
   </head>
   <body>
@@ -47,6 +48,18 @@
       </span>
     </script>
 
+    <!-- Project Selection View -->
+    <script id='select_project_item' type='text/x-handlebars-template'>
+      <span class='checkbox'>
+        <label>
+          <input type='checkbox' data-size='mini' data-inverse='true'
+            data-on-color='success' data-animate='false' value='{{ id }}'>
+          {{ repository_name }}
+        </label>
+      </span>
+    </script>
+    <li>
+
     <!-- Empty Projects View -->
     <script id='empty_projects_view' type='text/x-handlebars-template'>
       <div class="well well-sm">{{ msg.no_projects }}</div>
@@ -62,18 +75,37 @@
       {{#if new_user}}
       {{/if}}
 
-      <form role='form'>
-        <div class='form-group {{ hasError }}'>
-          <label for='api_key' class='control-label'><strong>{{ msg.codeship_api_key }}</strong></label>
-          <textarea id='api_key' class='form-control' rows='2' placeholder='{{ msg.paste_api_key }}' autofocus>{{ api_key }}</textarea>
-          <span class='help-block'>{{ msg.copy_api_key }}</span>
-        </div>
-        <div class='form-group pull-right'>
-          <button id='options_submit' type="submit" class='btn btn-primary btn-xs'>{{ msg.save }}</button>
-        </div>
-      </form>
-    </script>
+      <ul class='nav nav-tabs' role='tablist'>
+        <li class='active' role='presentation'>
+          <a href='#project_tab' data-toggle='tab'>Projects</a>
+        </li>
+        <li role='presentation'>
+          <a href='#api' data-toggle='tab'>API Key</a>
+        </li>
+      </ul>
 
+      <div class='tab-content'>
+        <div id='project_tab' class='tab-pane fade active in'>
+          <label class='control-label'><strong>Available Projects</strong></label>
+          <div id='projects' class='tab-pane fade active in'>
+          </div>
+        </div>
+
+        <div id='api' class='tab-pane fade in'>
+          <form role='form'>
+            <div class='form-group {{ hasError }}'>
+              <label for='api_key' class='control-label'><strong>{{ msg.codeship_api_key }}</strong></label>
+              <textarea id='api_key' class='form-control' rows='2' placeholder='{{ msg.paste_api_key }}' autofocus>{{ api_key }}</textarea>
+              <span class='help-block'>{{ msg.copy_api_key }}</span>
+            </div>
+          </form>
+        </div>
+      </div>
+
+      <div class='form-group pull-right'>
+        <button id='options_submit' type="submit" class='btn btn-primary btn-xs'>{{ msg.save }}</button>
+      </div>
+    </script>
 
     <script src='lib/jquery.min.js'></script>
     <script src='lib/underscore-min.js'></script>
@@ -83,6 +115,7 @@
     <script src='lib/backbone.babysitter.min.js'></script>
     <script src='lib/backbone.marionette.min.js'></script>
     <script src='lib/bootstrap.min.js'></script>
+    <script src='lib/bootstrap-switch.min.js'></script>
 
     <script src='dest/shipscope.min.js'></script>
   </body>

@@ -2,6 +2,9 @@ var listener = null
 var OptionsView = Backbone.Marionette.LayoutView.extend({
   hasError: false,
   template: '#options_view',
+  regions: {
+    project_selection: '#projects'
+  },
 
   templateHelpers: function() {
     return {
@@ -19,7 +22,16 @@ var OptionsView = Backbone.Marionette.LayoutView.extend({
     'click #options_submit': 'onSave',
   },
 
-  onRender: function() {
+  onShow: function() {
+    this.project_list = new ProjectsSelectorView({collection: this.model.get('projects')})
+    this.project_selection.show(this.project_list)
+    this.$('input[type=checkbox]').bootstrapSwitch()
+
+    this.$('.nav-tabs a').click(function (e) {
+      e.preventDefault()
+      $(this).tab('show')
+    })
+
     this.$('#api_key').focus()
   },
 

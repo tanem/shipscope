@@ -157,3 +157,15 @@ span.glyphicon-repeat.alert-info {
   }
 }
 
+span.checkbox {
+  margin: auto;
+}
+
+span.checkbox label {
+  padding: 0;
+  font-size: 16px;
+}
+
+.bootstrap-switch {
+  margin-right: 10px;
+}

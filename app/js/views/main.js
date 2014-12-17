@@ -25,6 +25,10 @@ var MainLayout = Backbone.Marionette.LayoutView.extend({
 
         this.initialized = true
         this.collection = new Projects(msg.data);
+
+        if (this.options && this.options.get('api_key')) {
+          this.options.set('projects', this.collection)
+        }
         this.onShowHome()
       }
 
@@ -50,7 +54,7 @@ var MainLayout = Backbone.Marionette.LayoutView.extend({
     $('nav span').text(chrome.i18n.getMessage('options'));
     $('footer').hide();
 
-    this.optionsView = new OptionsView({model: this.options});
+    this.optionsView = new OptionsView({model: this.options, projects: this.collection});
     this.project_list.show(this.optionsView);
   },
 

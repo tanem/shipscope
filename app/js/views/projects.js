@@ -5,7 +5,7 @@ var EmptyView = Backbone.Marionette.ItemView.extend({
       no_projects: chrome.i18n.getMessage('no_projects')
     }
   }
-});
+})
 
 var ProjectsView = Backbone.Marionette.CollectionView.extend({
   childView: ProjectView,
@@ -58,4 +58,22 @@ var ProjectsView = Backbone.Marionette.CollectionView.extend({
     ga('send', 'event', 'popup', 'project', 'select')
     Backbone.Events.trigger('show:project', projectId)
   },
-});
+})
+
+
+
+////// ProjectSelectorView
+var ProjectsSelectorView = Backbone.Marionette.CollectionView.extend({
+  childView: ProjectSelectorView,
+  emptyView: EmptyView,
+  className: 'list-group',
+  templateHelpers: {
+    msg: {
+      no_projects: chrome.i18n.getMessage('no_projects')
+    }
+  },
+
+  initialize: function() {
+    console.debug('ProjectsSelector: initializing')
+  }
+})

@@ -15,6 +15,7 @@ var cacheTemplates = function() {
     Backbone.Marionette.TemplateCache.get('#options_view');
     Backbone.Marionette.TemplateCache.get('#empty_projects_view');
     Backbone.Marionette.TemplateCache.get('#empty_builds_view');
+    Backbone.Marionette.TemplateCache.get('#select_project_item');
   },
 
   openIntercom = function() {

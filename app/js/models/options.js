@@ -1,6 +1,7 @@
 var OptionsModel = Backbone.Model.extend({
   defaults: {
-    api_key: ''
+    api_key: '',
+    projects: []
   },
 
   isEmptyApiKey: function() {
