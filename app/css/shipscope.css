@@ -169,3 +169,19 @@ span.checkbox label {
 .bootstrap-switch {
   margin-right: 10px;
 }
+
+.alert-warning {
+  background-color: #feb71a;
+}
+
+.alert-success {
+  background-color: #60cc69;
+}
+
+.alert-danger {
+  background-color: #fe402c;
+}
+
+.alert-info {
+  background-color: #5a95e5;
+}
