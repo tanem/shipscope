@@ -35,7 +35,6 @@ module.exports = function(grunt) {
       shipscope: {
         files: {
           'app/dest/shipscope.min.js': [
-            'app/js/util/ga.js',
             'app/js/models/**/*.js',
             'app/js/collections/**/*.js',
             'app/js/views/**/*.js',

@@ -55,7 +55,6 @@ var ProjectsView = Backbone.Marionette.CollectionView.extend({
     var info = event.currentTarget.querySelector('span[data-id]')
     var projectId = info.dataset.id
 
-    ga('send', 'event', 'popup', 'project', 'select')
     Backbone.Events.trigger('show:project', projectId)
   },
 })

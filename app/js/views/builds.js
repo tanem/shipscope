@@ -23,7 +23,6 @@ var BuildsView = Backbone.Marionette.CollectionView.extend({
 
     if (build) {
       if (build.get('status') != 'testing') {
-        ga('send', 'event', 'popup', 'build_restart', 'request')
         build.restart();
       }
     } else {
