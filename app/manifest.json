@@ -14,7 +14,7 @@
     "notifications",
     "storage",
     "https://www.codeship.io/",
-    "https://codeship.com/",
+    "https://codeship.com/"
     ],
   "background": {
     "page": "background.html"
