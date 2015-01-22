@@ -23,8 +23,6 @@ module.exports = function(config) {
       'app/lib/bootstrap.min.js',
       'app/lib/underscore-min.js',
       'app/lib/backbone-min.js',
-      'app/lib/backbone.babysitter.min.js',
-      'app/lib/backbone.wreqr.min.js',
       'app/lib/backbone.marionette.min.js',
       'app/lib/handlebars.js',
 
