@@ -49,11 +49,4 @@ describe('Build View', function() {
       helper.getStatusIcon.bind(build.attributes)().should.equal('info')
     })
   })
-
-  // it('should render when the status of a build changes', function() {
-  //   sinon.stub(view, 'onStatusChange')
-  //   build.set({status: 'testing'})
-  //
-  //   view.onStatusChange.calledOnce.should.be.true
-  // })
 })
