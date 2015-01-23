@@ -1,5 +1,5 @@
 var ga = function() {}
-describe('Build View', function() {
+describe('Builds View', function() {
   'use strict'
 
   var project, builds, view
@@ -10,11 +10,11 @@ describe('Build View', function() {
     view = new BuildsView({collection: builds}, {projectId: project.id})
   })
 
-  it('should have a collection when it is instantiated', function() {
+  it('has a collection when it is instantiated', function() {
     view.projectId.should.equal(project.id)
   })
 
-  it('should provide the project id to its child views', function() {
+  it('provides the project id to its child views', function() {
     view.childViewOptions().projectId.should.equal(project.id)
   })
 
@@ -36,18 +36,17 @@ describe('Build View', function() {
       window.ga.restore()
     })
 
-    it('should allow the user to restart the build', function() {
+    it('allows the user to restart the build', function() {
       var build = builds.at(0)
 
       sinon.stub(window, 'ga')
       sinon.stub(build, 'restart')
       view.onClick(event)
 
-      window.ga.calledOnce.should.be.true
       build.restart.calledOnce.should.be.true
     })
 
-    it('should not try to restart a nonexistent build', function() {
+    it('does not try to restart a nonexistent build', function() {
       event.currentTarget.dataset.id = 99999999999
       sinon.stub(window, 'ga')
       sinon.stub(console, 'warn')
