@@ -1,5 +1,8 @@
 var Project = Backbone.Model.extend({
   tagName: 'li',
+  defaults: {
+    enabled: false
+  },
 
   getStatus: function() {
     var

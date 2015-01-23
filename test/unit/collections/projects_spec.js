@@ -45,7 +45,7 @@ describe('Projects', function() {
     it('enables projects from an array of selected projects', function() {
       projects.setSelectedProjects([9999])
       projects.at(0).get('enabled').should.eql(true)
-      should.not.exist(projects.at(1).get('enabled'))
+      projects.at(1).get('enabled').should.eql(false)
     })
   })
 })

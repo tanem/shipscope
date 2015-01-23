@@ -3,6 +3,9 @@ var OptionsProjectView = Backbone.Marionette.ItemView.extend({
   className: 'list-group-item',
   template: '#option_project_item',
 
-  templateHelpers: {
+  templateHelpers: function() {
+    return {
+      isChecked: this.model.get('enabled') ? 'checked' : ''
+    }
   }
 })

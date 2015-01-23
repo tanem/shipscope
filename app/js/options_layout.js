@@ -22,8 +22,12 @@ var OptionsLayout = Backbone.Marionette.LayoutView.extend({
 
       if (msg.type == 'options.set') {
         var options = new OptionsModel(msg.data.settings)
-        this.collection.setSelectedProjects(options.get('projects'))
-        options.set({available_projects: this.collection})
+
+        if (this.collection) {
+          this.collection.setSelectedProjects(options.get('projects'))
+          options.set({available_projects: this.collection})
+        }
+
         this.content.show(new OptionsProjectsView({
           model: options,
           collection: this.collection

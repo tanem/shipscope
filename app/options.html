@@ -46,7 +46,7 @@
     <script id='option_project_item' type='text/x-handlebars-template'>
       <span class='checkbox'>
         <label>
-          <input type='checkbox' checked='{{ active }}' data-size='mini' data-inverse='true'
+          <input type='checkbox' {{ isChecked }} data-size='mini' data-inverse='true'
             data-on-color='success' data-animate='false' value='{{ id }}'>
           {{ repository_name }}
         </label>
