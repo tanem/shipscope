@@ -26,5 +26,18 @@ var Projects = Backbone.Collection.extend({
       }
     })
     return highState
-  }
+  },
+
+  setSelectedProjects: function(selectedProjects) {
+    if (!selectedProjects || selectedProjects.length == 0) {
+      this.each(function(project) { project.set({enabled: true}) })
+      return
+    }
+
+    var that = this
+    _.each(selectedProjects, function(projectId) {
+      project = that.get(projectId)
+      project.set({enabled: true})
+    })
+  },
 });

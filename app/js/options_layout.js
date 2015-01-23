@@ -21,10 +21,11 @@ var OptionsLayout = Backbone.Marionette.LayoutView.extend({
       }
 
       if (msg.type == 'options.set') {
-        OptionsApp.options = new OptionsModel(msg.data.settings)
-        OptionsApp.options.set({available_projects: this.collection})
+        var options = new OptionsModel(msg.data.settings)
+        this.collection.setSelectedProjects(options.get('projects'))
+        options.set({available_projects: this.collection})
         this.content.show(new OptionsProjectsView({
-          model: OptionsApp.options,
+          model: options,
           collection: this.collection
         }))
       }
@@ -32,6 +33,5 @@ var OptionsLayout = Backbone.Marionette.LayoutView.extend({
 
     OptionsApp.intercom.postMessage({type: 'projects.get'})
     OptionsApp.intercom.postMessage({type: 'options.get'})
-    OptionsApp.options = new OptionsModel();
   },
 })
