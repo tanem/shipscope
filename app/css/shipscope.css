@@ -1,4 +1,12 @@
 body {
+  /* width: 350px; */
+}
+
+body.options {
+  width: 600px;
+}
+
+body.popup {
   width: 350px;
 }
 
@@ -31,6 +39,24 @@ nav span {
   transition: opacity 2s;
 }
 
+nav.options {
+  display: inline-block;
+}
+
+.tabs {
+  display: inline-block;
+}
+
+nav.options ul {
+  list-style: none;
+  padding: 10px;
+  line-height: 1.5em;
+}
+
+nav.options ul a:hover {
+  text-decoration: none;
+}
+
 nav.project_view h5 {
   right: 0;
   left: auto;
@@ -53,12 +79,24 @@ nav.project_view span {
   transition: opacity 2s;
 }
 
+.options_content {
+  display: inline-block;
+  width: 500px;
+  text-align: center;
+}
+
 body > div {
   padding: 0 10px;
 }
 
 div#project_list a {
   cursor: pointer;
+  font-size: 12px;
+  padding: 8px 12px;
+}
+
+div#project_list .active a {
+  font-weight: bold;
 }
 
 #project_list .commit_message {

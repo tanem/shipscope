@@ -7,7 +7,6 @@ var MainLayout = Backbone.Marionette.LayoutView.extend({
 
   events: {
     'click nav h5 a': 'onShowHome',
-    'click footer button': 'onShowOptions'
   },
 
   initialize: function() {
@@ -26,40 +25,29 @@ var MainLayout = Backbone.Marionette.LayoutView.extend({
         this.initialized = true
         this.collection = new Projects(msg.data);
 
-        if (this.options && this.options.get('api_key')) {
+        if (this.options && this.options.get('settings')) {
           this.options.set('projects', this.collection)
         }
         this.onShowHome()
       }
 
       if (msg.type == 'options.set') {
-        console.debug('options.set:', msg.data)
-        this.options = new OptionsModel(msg.data)
+        console.debug('options.set:', msg.data.settings)
+        this.options = new OptionsModel(msg.data.settings)
         App.options = msg.data
 
-        if (!this.options.get('api_key')) {
-          this.onShowOptions()
-        }
+        // if (!this.options.get('options')) {
+        //   this.onShowOptions()
+        // }
       }
     }.bind(this));
 
-    App.intercom.postMessage({type: 'options.get'})
     App.intercom.postMessage({type: 'projects.get'})
+    App.intercom.postMessage({type: 'options.get'})
     this.options = new OptionsModel();
   },
 
-  onShowOptions: function() {
-    this.options.once('sync', this.onShowOptions);
-    $('nav').addClass('project_view');
-    $('nav span').text(chrome.i18n.getMessage('options'));
-    $('footer').hide();
-
-    this.optionsView = new OptionsView({model: this.options, projects: this.collection});
-    this.project_list.show(this.optionsView);
-  },
-
   onShowHome: function() {
-    ga('send', 'event', 'popup', 'view_projects', 'launch')
     $('nav').removeClass('project_view');
     $('footer').show();
     this.projectsView = new ProjectsView({collection: this.collection});
@@ -79,5 +67,4 @@ var MainLayout = Backbone.Marionette.LayoutView.extend({
       this.project_list.show(buildsView);
     }
   },
-
 });

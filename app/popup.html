@@ -6,12 +6,8 @@
     <link rel='stylesheet' href="css/bootstrap/bootstrap-switch.min.css">
     <link rel='stylesheet' href="css/shipscope.css">
   </head>
-  <body>
+  <body class='popup'>
     <script id='mainLayout' type='text/x-handlebars-template'>
-      {{#if false }}
-        <div id='message'>IMPORTANT MESSAGE GOES HERE (like your API Key is bad)</div>
-      {{/if}}
-
       <nav id='nav'>
         <span id='view_name'>fake/unboggleme{{ name }}</span>
         <h5><a href='#'>shipscope</a></h5>
@@ -20,9 +16,6 @@
       <section id='main'>
         <div id='project_list'></div>
       </section>
-      <footer>
-        <button type='button' class='btn btn-link btn-xs pull-right'>options</button>
-      </footer>
     </script>
 
 
@@ -52,13 +45,12 @@
     <script id='select_project_item' type='text/x-handlebars-template'>
       <span class='checkbox'>
         <label>
-          <input type='checkbox' data-size='mini' data-inverse='true'
+          <input type='checkbox' checked='{{ active }}' data-size='mini' data-inverse='true'
             data-on-color='success' data-animate='false' value='{{ id }}'>
           {{ repository_name }}
         </label>
       </span>
     </script>
-    <li>
 
     <!-- Empty Projects View -->
     <script id='empty_projects_view' type='text/x-handlebars-template'>
@@ -68,40 +60,6 @@
     <!-- Empty Builds View -->
     <script id='empty_builds_view' type='text/x-handlebars-template'>
       <div class="well well-sm">{{ msg.no_builds }}</div>
-    </script>
-
-    <!-- Options -->
-    <script id='options_view' type='text/x-handlebars-template'>
-      <ul class='nav nav-tabs' role='tablist'>
-        <li class='active' role='presentation'>
-          <a href='#project_tab' data-toggle='tab'>Projects</a>
-        </li>
-        <li role='presentation'>
-          <a href='#api' data-toggle='tab'>API Key</a>
-        </li>
-      </ul>
-
-      <div class='tab-content'>
-        <div id='project_tab' class='tab-pane fade active in'>
-          <label class='control-label'><strong>Available Projects</strong></label>
-          <div id='projects' class='tab-pane fade active in'>
-          </div>
-        </div>
-
-        <div id='api' class='tab-pane fade in'>
-          <form role='form'>
-            <div class='form-group {{ hasError }}'>
-              <label for='api_key' class='control-label'><strong>{{ msg.codeship_api_key }}</strong></label>
-              <textarea id='api_key' class='form-control' rows='2' placeholder='{{ msg.paste_api_key }}' autofocus>{{ api_key }}</textarea>
-              <span class='help-block'>{{ msg.copy_api_key }}</span>
-            </div>
-          </form>
-        </div>
-      </div>
-
-      <div class='form-group pull-right'>
-        <button id='options_submit' type="submit" class='btn btn-primary btn-xs'>{{ msg.save }}</button>
-      </div>
     </script>
 
     <script src='lib/jquery.min.js'></script>
