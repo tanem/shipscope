@@ -3,6 +3,7 @@ var OptionsLayout = Backbone.Marionette.LayoutView.extend({
   className: 'options',
   regions: {
     nav: '#options_nav',
+    title: '#options_title',
     content: '#options_content'
   },
 

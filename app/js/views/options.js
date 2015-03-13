@@ -1,3 +1,7 @@
+//
+// DO NOT ACTUALLY USE THIS CLASS. IT SHOULD BE REMOVED ONCE
+// THE BEHAVIOR IS COPIED INTO THE NEW OPTIONS PAGE.
+//
 var listener = null
 var OptionsView = Backbone.Marionette.LayoutView.extend({
   hasError: false,

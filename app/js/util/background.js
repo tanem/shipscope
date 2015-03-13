@@ -4,7 +4,7 @@ var Background = function() {
     ANALYTICS_INTERVAL = 60000,
     CODESHIP_URL = 'https://codeship.com/api/v1/projects.json',
     FAKE_URL = 'http://localhost:8080/projects_fake.json',
-    URL = CODESHIP_URL,
+    URL = FAKE_URL,
 
     buildWatcher,
     pollingInterval,
@@ -25,12 +25,14 @@ var Background = function() {
         })
 
         intercom.onMessage.addListener(function(msg) {
+          console.debug('background intercom:', msg)
           if (msg.type == 'options.set') {
             options = {options: msg.data};
             chrome.storage.sync.set(options, function() {
               if (chrome.runtime.lastError) {
                 console.error('ERROR setting options:', options, '=>', chrome.runtime.lastError.message);
               }
+              console.debug('STORED')
             });
             if (options && options.api_key) {
               fetchProjectsFromCodeship();

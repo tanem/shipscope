@@ -1,6 +1,6 @@
 var OptionsProjectView = Backbone.Marionette.ItemView.extend({
   tagName: 'li',
-  className: 'list-group-item',
+  className: 'project_selector_item',
   template: '#option_project_item',
 
   templateHelpers: function() {

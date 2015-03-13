@@ -5,13 +5,14 @@ Backbone.Marionette.TemplateCache.prototype.compileTemplate = function(rawTempla
 var OptionsApp = new Marionette.Application(),
   cacheTemplates = function() {
     Backbone.Marionette.TemplateCache.get('#options_layout')
-    Backbone.Marionette.TemplateCache.get('#option_projects_list')
     Backbone.Marionette.TemplateCache.get('#option_project_item')
     Backbone.Marionette.TemplateCache.get('#empty_projects_view')
   },
 
   openIntercom = function() {
     OptionsApp.intercom = chrome.extension.connect({name: "shipscope intercom"})
+    OptionsApp.intercom.postMessage({type: 'options.fetch'})
+    console.debug('intercom! optioned')
 
     if (OptionsApp.intercom) {
       OptionsApp.main.show(new OptionsLayout())
