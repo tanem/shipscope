@@ -30,7 +30,6 @@ describe('Projects', function() {
     })
 
     it('should summarize all projects', function() {
-      // projects = new Projects([ProjectFixtures.good, ProjectFixtures.testing])
       var status = projects.getSummary()
       status.should.eql({count: 1, state: Build.STATES.error})
     })
