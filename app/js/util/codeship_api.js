@@ -5,7 +5,12 @@ var CodeshipApi = (function() {
     BUILD_URL = API_HOST + "/v1/builds.json",
 
     fetchAll = function(options, callback) {
-      fetchProjects(options, function(projects) {
+      fetchProjects(options, function(projects, error) {
+        if (error) {
+          callback(null, error)
+          return
+        }
+
         async.each(projects.models, function(project, done) {
           fetchBuilds(options, project, function(builds) {
             project.set({builds: builds});
@@ -13,7 +18,7 @@ var CodeshipApi = (function() {
           })
         }, function(error) {
           if (error) {
-            // error handling
+            callback(null, error)
           } else {
             callback(projects)
           }
@@ -31,7 +36,6 @@ var CodeshipApi = (function() {
         })
         .fail(function(err) {
           ga('send', 'event', 'background', 'fetch_builds', 'error')
-          if (intercom) intercom.postMessage({type: 'error', data: err})
         });
     },
 
@@ -45,6 +49,7 @@ var CodeshipApi = (function() {
           })
           .fail(function(err) {
             ga('send', 'event', 'background', 'fetch_projects', 'error')
+            callback(null, {type: 'error', data: err})
           });
       }
     }

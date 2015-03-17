@@ -57,7 +57,14 @@ var Background = function() {
     },
 
     fetchProjectsFromCodeship = function() {
-      api.fetchAll(options, function(_projects) {
+      api.fetchAll(options, function(_projects, error) {
+        if (error) {
+          if (intercom) intercom.postMessage(error)
+          return
+        } else {
+          if (intercom) intercom.postMessage({type: 'api_ok'})
+        }
+
         projects = _projects
         buildWatcher.scan(projects)
         getShipscopeSummary()
@@ -90,8 +97,8 @@ var Background = function() {
 
   return {
     initialize: function() {
-      buildWatcher = new BuildWatcher()
       initIntercom();
+      buildWatcher = new BuildWatcher()
       fetchApiKeyFromLocalStorage();
       initAnalyticsPing()
       startPolling();
