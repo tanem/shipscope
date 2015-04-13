@@ -1,9 +1,16 @@
 describe('Projects', function() {
   'use strict'
-  var projects
+  var projects, builds
 
   beforeEach(function() {
-    projects = new Projects([ProjectFixtures.good, ProjectFixtures.bad])
+    var project1 = new Project(ProjectFixtures.good),
+        project2 = new Project(ProjectFixtures.good2),
+        goodBuilds = new Builds(BuildFixtures.good),
+        badBuilds = new Builds(BuildFixtures.error)
+
+    project1.set({builds: goodBuilds})
+    project2.set({builds: badBuilds})
+    projects = new Projects([project1, project2])
   })
 
   it('loads both projects correctly', function() {
@@ -23,9 +30,8 @@ describe('Projects', function() {
     })
 
     it('summarizes all projects, including testing build', function() {
-      projects = new Projects([ProjectFixtures.good, ProjectFixtures.testing])
       var status = projects.getSummary()
-      status.should.eql({count: 1, state: Build.STATES.testing})
+      status.should.eql({count: 1, state: Build.STATES.error})
     })
   })
 
