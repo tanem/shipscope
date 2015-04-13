@@ -38,7 +38,6 @@ var OptionsView = Backbone.Marionette.LayoutView.extend({
   },
 
   destroy: function() {
-    console.debug('options.destroy')
     this.stopListeningForApiResult()
   },
 

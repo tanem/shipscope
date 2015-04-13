@@ -44,10 +44,12 @@ module.exports = function(grunt) {
           'app/dest/shipscope-background.min.js': [
             'app/js/util/ga.js',
             'app/js/util/build_watcher.js',
+            'app/js/util/codeship_api.js',
             'app/js/models/build.js',
             'app/js/models/project.js',
             'app/js/collections/builds.js',
             'app/js/collections/projects.js',
+            'app/js/util/codeship_api.js',
             'app/js/util/background.js'
           ]
         }
