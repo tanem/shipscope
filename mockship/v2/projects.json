@@ -1,0 +1,52 @@
+exports.projects = {
+  "projects": [
+    {
+      "id": 34082,
+      "uuid": "65d07f70-1760-0132-b253-1a9c2abd41b7",
+      "repository_name": "codeship/shipscope",
+      "repository_provider": "github"
+    },
+    {
+      "id": 60996,
+      "uuid": "9699e560-8ea1-0132-4f56-722bf1e0f0db",
+      "repository_name": "codeship/panicboard",
+      "repository_provider": "github"
+    },
+    {
+      "id": 52113,
+      "uuid": "7b396e30-62a4-0132-e881-5206a1a455eb",
+      "repository_name": "codeship/pivotal-poster",
+      "repository_provider": "github"
+    },
+    {
+      "id": 54269,
+      "uuid": "517b4900-6db8-0132-4613-42ff4291bb4c",
+      "repository_name": "mcgaffin/modulus-demo",
+      "repository_provider": "github"
+    },
+    {
+      "id": 50694,
+      "uuid": "4f01c350-5c20-0132-5465-0e90e8baf01d",
+      "repository_name": "codeship/captain",
+      "repository_provider": "github"
+    },
+    {
+      "id": 33837,
+      "uuid": "59a737f0-1648-0132-c4e7-72c6c37b1f6e",
+      "repository_name": "codeship/documentation",
+      "repository_provider": "github"
+    },
+    {
+      "id": 211,
+      "uuid": "dc6015e0-5a45-012f-bcbb-12313926fcbb",
+      "repository_name": "codeship/checkbot",
+      "repository_provider": "github"
+    },
+    {
+      "id": 7978,
+      "uuid": "74d7d550-149d-0131-0e12-4a108d17db0c",
+      "repository_name": "codeship/mothership",
+      "repository_provider": "github"
+    }
+  ]
+}
