@@ -37,6 +37,7 @@ nav span {
 
 nav.options {
   display: inline-block;
+  vertical-align: top;
 }
 
 .tabs {
@@ -94,8 +95,8 @@ div#project_list .active a {
   font-weight: bold;
 }
 
-.options_content .projects_list {
-  padding: 15px;
+.project_selector .projects_list {
+  padding: 0 15px;
 }
 
 .options_content .project_selector_item {
@@ -205,7 +206,16 @@ span.checkbox {
 
 span.checkbox label {
   padding: 0;
+  font-size: 14px;
+}
+
+div.project_selector {
+  display: inline-block;
+}
+
+div.project_selector h4 {
   font-size: 16px;
+  padding: 0 15px;
 }
 
 .bootstrap-switch {
