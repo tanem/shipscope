@@ -42,8 +42,7 @@ nav.options {
   vertical-align: top;
   background-color: #efefef;
   border-right: 1px solid lightgray;
-  padding: 0 5px;
-
+  padding: 8px 5px;
 }
 
 .tabs {
@@ -221,12 +220,9 @@ span.checkbox label {
 
 .project_selector {
   display: inline-block;
+  padding: 15px 0;
 }
 
-.project_selector h4 {
-  font-size: 16px;
-  padding: 0 15px;
-}
 
 .bootstrap-switch {
   margin-right: 10px;
