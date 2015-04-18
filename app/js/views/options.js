@@ -12,16 +12,6 @@ var OptionsView = Backbone.Marionette.LayoutView.extend({
 
   initialize: function(attrs) {
     console.debug('OptionsView.initialize ------')
-    // this.projects = new Projects(attrs.projects.models)
-    // var selected_projects = this.model.get('projects')
-
-    // if (this.model.get('projects') > 0) {
-    //   console.debug('testing')
-    //   this.projects.each(function(p) {
-    //     p.ss_enabled = this.model.get('projects').indexOf(p) > -1
-    //     console.debug(p)
-    //   })
-    // }
   },
 
   templateHelpers: function() {
@@ -41,14 +31,6 @@ var OptionsView = Backbone.Marionette.LayoutView.extend({
   },
 
   onShow: function() {
-    // if (this.projects && this.projects.length > 0) {
-    //   this.project_list = new ProjectsSelectorView({collection: this.projects})
-    //   this.project_selection.show(this.project_list)
-    //   this.$('input[type=checkbox]').bootstrapSwitch()
-    // } else {
-    //   this.$('ul.nav-tabs li:last-of-type').tab('show')
-    // }
-
     this.$('.nav-tabs a').click(function (e) {
       e.preventDefault()
       // $(this).tab('show')

@@ -36,18 +36,28 @@ nav span {
 }
 
 nav.options {
+  height: 400px;
+  width: 100px;
   display: inline-block;
   vertical-align: top;
+  background-color: #efefef;
+  border-right: 1px solid lightgray;
+  padding: 0 5px;
+
 }
 
 .tabs {
   display: inline-block;
 }
 
+div.options {
+  padding: 0;
+}
+
 nav.options ul {
   list-style: none;
   padding: 10px;
-  line-height: 1.5em;
+  line-height: 1.6em;
 }
 
 nav.options ul a:hover {
@@ -78,7 +88,7 @@ nav.project_view span {
 
 .options_content {
   display: inline-block;
-  width: 400px;
+  width: 300px;
 }
 
 body > div {
@@ -209,11 +219,11 @@ span.checkbox label {
   font-size: 14px;
 }
 
-div.project_selector {
+.project_selector {
   display: inline-block;
 }
 
-div.project_selector h4 {
+.project_selector h4 {
   font-size: 16px;
   padding: 0 15px;
 }
