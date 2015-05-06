@@ -70,7 +70,6 @@ var BuildWatcher = (function(options, api) {
           projects = this.projects
 
       api.fetchBuilds(options, project, function(builds) {
-        console.debug('builds for:', project.id, builds)
         project.set({builds: builds})
         scanProjects(projects)
       })
@@ -91,7 +90,6 @@ var BuildWatcher = (function(options, api) {
             channel
 
         if (!projectChannels[projectChannel]) {
-          console.debug('subscribing')
           channel = pusher.subscribe(projectChannel)
           projectChannels[projectChannel] = channel
 
