@@ -1,6 +1,7 @@
 var CodeshipApi = (function() {
   var
     API_HOST = "https://codeship.com/api",
+    // API_HOST = "http://localhost:8080",
     PROJECT_URL = API_HOST + "/v2/projects.json",
     BUILD_URL = API_HOST + "/v1/builds.json",
 
@@ -14,6 +15,7 @@ var CodeshipApi = (function() {
         async.each(projects.models, function(project, done) {
           fetchBuilds(options, project, function(builds) {
             project.set({builds: builds});
+
             done()
           })
         }, function(error) {
@@ -35,6 +37,7 @@ var CodeshipApi = (function() {
           callback(buildsCollection)
         })
         .fail(function(err) {
+          console.error(err)
           ga('send', 'event', 'background', 'fetch_builds', 'error')
         });
     },
@@ -55,8 +58,8 @@ var CodeshipApi = (function() {
     }
 
   return {
-    fetchAll: function(options, callback) {
-      fetchAll(options, callback)
-    }
+    fetchAll: fetchAll,
+    fetchBuilds: fetchBuilds,
+    fetchProjects: fetchProjects
   }
 });
