@@ -17,7 +17,7 @@ describe('BuildWatcher', function() {
   })
 
   beforeEach(function() {
-    watcher = new BuildWatcher()
+    watcher = new BuildWatcher({api_key: 'fake_key'})
   })
 
   it('ignores any builds that are not testing', function() {

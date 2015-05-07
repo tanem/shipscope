@@ -4,3 +4,12 @@ if (chrome.i18n === undefined) {
     getMessage: function() { return 'STUBBED' }
   }
 }
+
+if (Pusher === undefined) {
+  var Pusher = function() {
+    return {
+      bind: function() {},
+      subscribe: function() { return { bind: function() {} } }
+    }
+  }
+}
