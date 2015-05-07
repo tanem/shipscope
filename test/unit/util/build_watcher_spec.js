@@ -4,6 +4,10 @@ describe('BuildWatcher', function() {
 
   before(function() {
     chrome = {
+      browserAction: {
+        setBadgeText: function() {},
+        setBadgeBackgroundColor: function() {}
+      },
       notifications: {
         create: function() {},
         onClicked: { addListener: function() {} },

@@ -27,6 +27,7 @@ module.exports = function(config) {
       'app/lib/backbone.wreqr.min.js',
       'app/lib/backbone.marionette.min.js',
       'app/lib/handlebars.js',
+      'app/lib/pusher.min.js',
 
 
       'app/js/models/build.js',

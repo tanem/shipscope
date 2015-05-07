@@ -9,7 +9,7 @@ var BuildWatcher = (function(options, api) {
     buildChannels = {},
 
     initializePusher = function() {
-      window.pusher = pusher = new Pusher(PUSHER_APP_KEY, {
+      pusher = new Pusher(PUSHER_APP_KEY, {
           authEndpoint: 'https://codeship.com/pusher/auth',
           disableStats: true
       })
