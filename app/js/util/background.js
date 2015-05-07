@@ -1,13 +1,13 @@
 var Background = function() {
   var
-    POLLING_INTERVAL = 10000,
+    PROJECTS_POLLING_INTERVAL = (5 * 60000), // check list of projects every 5 minutes
     ANALYTICS_INTERVAL = 60000,
     api = new CodeshipApi(),
 
     buildWatcher,
     pollingInterval,
     options,
-    projects,
+    projects = new Projects(),
     intercom,
 
     initIntercom = function() {
@@ -32,7 +32,6 @@ var Background = function() {
             });
             if (options && options.api_key) {
               fetchProjectsFromCodeship();
-              startPolling();
             }
             return;
           }
@@ -49,14 +48,14 @@ var Background = function() {
       })
     },
 
-    fetchApiKeyFromLocalStorage = function() {
+    fetchApiKeyFromLocalStorage = function(done) {
       chrome.storage.sync.get('api_key', function(value) {
         options = value
-        if (options) fetchProjectsFromCodeship()
+        done()
       });
     },
 
-    fetchProjectsFromCodeship = function() {
+    fetchProjectsFromCodeship = function(done) {
       api.fetchAll(options, function(_projects, error) {
         if (error) {
           if (intercom) intercom.postMessage(error)
@@ -65,43 +64,34 @@ var Background = function() {
           if (intercom) intercom.postMessage({type: 'api_ok'})
         }
 
-        projects = _projects
+        projects.reset(_projects.models)
         buildWatcher.scan(projects)
-        getShipscopeSummary()
+        if (done) done()
       })
     },
 
-    getShipscopeSummary = function() {
-      var STATUS_COLORS = [
-        '#feb71a',    // stopped
-        '#60cc69',    // success
-        '#fe402c',    // error
-        '#5a95e5'     // testing
-      ]
-
-      var status = projects.getSummary()
-
-      chrome.browserAction.setBadgeText({text: status.count.toString()})
-      chrome.browserAction.setBadgeBackgroundColor({color: STATUS_COLORS[status.state]})
-    },
-
-    initAnalyticsPing = function() {
+    initializePolling = function() {
       setInterval(function() {
         ga('send', 'event', 'background', 'active_user', 'ping')
       }, ANALYTICS_INTERVAL)
+
+      setInterval(fetchProjectsFromCodeship, PROJECTS_POLLING_INTERVAL)
     },
 
-    startPolling = function() {
-      setInterval(fetchProjectsFromCodeship, POLLING_INTERVAL);
+    initializeBuildWatcher = function(done) {
+      buildWatcher = new BuildWatcher(options, api)
+      done()
     }
 
   return {
     initialize: function() {
-      initIntercom();
-      buildWatcher = new BuildWatcher()
-      fetchApiKeyFromLocalStorage();
-      initAnalyticsPing()
-      startPolling();
+      initIntercom()
+      initializePolling()
+      async.series([
+        fetchApiKeyFromLocalStorage,
+        initializeBuildWatcher,
+        fetchProjectsFromCodeship
+      ])
     }
   }
 };
