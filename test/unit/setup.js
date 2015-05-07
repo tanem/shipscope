@@ -7,9 +7,13 @@ if (chrome.i18n === undefined) {
 
 if (Pusher === undefined) {
   var Pusher = function() {
+    var bind = function() {},
+        bindable = function() { return { bind: bind } }
+
     return {
-      bind: function() {},
-      subscribe: function() { return { bind: function() {} } }
+      bind: bind,
+      connection: bindable,
+      subscribe: bindable
     }
   }
 }

@@ -11,7 +11,13 @@ var BuildWatcher = (function(options, api) {
     initializePusher = function() {
       pusher = new Pusher(PUSHER_APP_KEY, {
           authEndpoint: 'https://codeship.com/pusher/auth',
-          disableStats: true
+          auth: {
+            params: {
+              api_key: options.api_key
+            }
+          },
+          disableStats: true,
+          encrypted: true
       })
       pusher.bind('pusher:subscription_succeeded', onSubscriptionSucceeded)
       pusher.bind('pusher:subscription_error', onSubscriptionError)
