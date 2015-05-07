@@ -19,8 +19,11 @@ var BuildWatcher = (function(options, api) {
           disableStats: true,
           encrypted: true
       })
-      pusher.bind('pusher:subscription_succeeded', onSubscriptionSucceeded)
-      pusher.bind('pusher:subscription_error', onSubscriptionError)
+      pusher.connection.bind('state_change', function(states) {
+        console.debug('onConnectionStateChange:', pusher.connection.state)
+        console.debug('...states:', states)
+        getShipscopeSummary()
+      })
     },
 
     ellipsify = function(str, max) {
@@ -124,10 +127,15 @@ var BuildWatcher = (function(options, api) {
         '#5a95e5'     // testing
       ]
 
-      var status = projects.getSummary()
+      if (projects !== undefined && pusher.connection.state == 'connected') {
+        var status = projects.getSummary()
 
-      chrome.browserAction.setBadgeText({text: status.count.toString()})
-      chrome.browserAction.setBadgeBackgroundColor({color: STATUS_COLORS[status.state]})
+        chrome.browserAction.setBadgeText({text: status.count.toString()})
+        chrome.browserAction.setBadgeBackgroundColor({color: STATUS_COLORS[status.state]})
+      } else {
+        chrome.browserAction.setBadgeText({text: 'X'})
+        chrome.browserAction.setBadgeBackgroundColor({color: STATUS_COLORS[2]})
+      }
     }
 
   chrome.notifications.onClicked.addListener(onNotificationClicked)
