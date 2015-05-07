@@ -7,7 +7,7 @@ var Background = function() {
     buildWatcher,
     pollingInterval,
     options,
-    projects,
+    projects = new Projects(),
     intercom,
 
     initIntercom = function() {
@@ -64,7 +64,7 @@ var Background = function() {
           if (intercom) intercom.postMessage({type: 'api_ok'})
         }
 
-        projects = _projects
+        projects.reset(_projects.models)
         buildWatcher.scan(projects)
         if (done) done()
       })

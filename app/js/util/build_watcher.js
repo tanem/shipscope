@@ -72,8 +72,8 @@ var BuildWatcher = (function(options, api) {
     },
 
     onUpdate = function(data) {
-      var project = this.project,
-          projects = this.projects
+      var projects = this.projects,
+          project = projects.get(this.projectId)
 
       api.fetchBuilds(options, project, function(builds) {
         project.set({builds: builds})
@@ -91,7 +91,7 @@ var BuildWatcher = (function(options, api) {
 
     scanProjects = function(projects) {
       projects.forEach(function(project) {
-        var projectInfo = { projects: projects, project: project },
+        var projectInfo = { projects: projects, projectId: project.id },
             projectChannel = PRIVATE_PROJECT + project.id,
             channel
 

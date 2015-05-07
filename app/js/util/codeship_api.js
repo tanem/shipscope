@@ -13,18 +13,17 @@ var CodeshipApi = (function() {
         }
 
         async.each(projects.models, function(project, done) {
-          fetchBuilds(options, project, function(builds) {
-            project.set({builds: builds});
-
-            done()
+            fetchBuilds(options, project, function(builds) {
+              project.set({builds: builds});
+              done()
+            })
+          }, function(error) {
+            if (error) {
+              callback(null, error)
+            } else {
+              callback(projects)
+            }
           })
-        }, function(error) {
-          if (error) {
-            callback(null, error)
-          } else {
-            callback(projects)
-          }
-        })
       })
     },
 
