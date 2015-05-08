@@ -4,6 +4,10 @@ describe('BuildWatcher', function() {
 
   before(function() {
     chrome = {
+      browserAction: {
+        setBadgeText: function() {},
+        setBadgeBackgroundColor: function() {}
+      },
       notifications: {
         create: function() {},
         onClicked: { addListener: function() {} },
@@ -13,7 +17,7 @@ describe('BuildWatcher', function() {
   })
 
   beforeEach(function() {
-    watcher = new BuildWatcher()
+    watcher = new BuildWatcher({api_key: 'fake_key'})
   })
 
   it('ignores any builds that are not testing', function() {
