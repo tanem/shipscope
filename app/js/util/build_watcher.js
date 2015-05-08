@@ -1,8 +1,15 @@
 var BuildWatcher = (function(options, api) {
   var
+    STATUS_COLORS = [
+      '#feb71a',    // stopped
+      '#60cc69',    // success
+      '#fe402c',    // error
+      '#5a95e5'     // testing
+    ],
     PUSHER_APP_KEY = '1971ebf8928f03c907ed',
     PRIVATE_PROJECT = 'private-project-',
     PRIVATE_BUILD = 'private-build-',
+    UPDATE_EVENT = 'common',
     pusher,
     isWatching = {},
     projectChannels = {},
@@ -102,7 +109,7 @@ var BuildWatcher = (function(options, api) {
           channel = pusher.subscribe(projectChannel)
           projectChannels[projectChannel] = channel
 
-          channel.bind('common', onUpdate.bind(projectInfo))
+          channel.bind(UPDATE_EVENT, onUpdate.bind(projectInfo))
         }
 
         project.get('builds').forEach(function(build) {
@@ -119,22 +126,24 @@ var BuildWatcher = (function(options, api) {
       getShipscopeSummary(projects)
     },
 
+    updateProjectStatus = function(projects) {
+      var status = projects.getSummary()
+
+      chrome.browserAction.setBadgeText({text: status.count.toString()})
+      chrome.browserAction.setBadgeBackgroundColor({color: STATUS_COLORS[status.state]})
+    },
+
     getShipscopeSummary = function(projects) {
-      var STATUS_COLORS = [
-        '#feb71a',    // stopped
-        '#60cc69',    // success
-        '#fe402c',    // error
-        '#5a95e5'     // testing
-      ]
-
-      if (projects !== undefined && pusher.connection.state == 'connected') {
-        var status = projects.getSummary()
-
-        chrome.browserAction.setBadgeText({text: status.count.toString()})
-        chrome.browserAction.setBadgeBackgroundColor({color: STATUS_COLORS[status.state]})
+      if (pusher.connection.state == 'connected') {
+        if (projects === undefined) {
+          api.fetchAll(options, updateProjectStatus)
+          console.debug('fetched all projects after disconnection')
+          return
+        }
+        updateProjectStatus(projects)
       } else {
         chrome.browserAction.setBadgeText({text: 'X'})
-        chrome.browserAction.setBadgeBackgroundColor({color: STATUS_COLORS[2]})
+        chrome.browserAction.setBadgeBackgroundColor({color: STATUS_COLORS[Build.STATES.error]})
       }
     }
 
