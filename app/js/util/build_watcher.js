@@ -27,8 +27,6 @@ var BuildWatcher = (function(options, api) {
           encrypted: true
       })
       pusher.connection.bind('state_change', function(states) {
-        console.debug('onConnectionStateChange:', pusher.connection.state)
-        console.debug('...states:', states)
         getShipscopeSummary()
       })
     },
@@ -91,14 +89,6 @@ var BuildWatcher = (function(options, api) {
       })
     },
 
-    onSubscriptionSucceeded = function() {
-      console.debug('buildWatcher.onSubscriptionSuccess')
-    },
-
-    onSubscriptionError = function(status) {
-      console.error('buildWatcher.onSubscriptionError:', status)
-    },
-
     scanProjects = function(projects) {
       projects.forEach(function(project) {
         var projectInfo = { projects: projects, projectId: project.id },
@@ -137,7 +127,6 @@ var BuildWatcher = (function(options, api) {
       if (pusher.connection.state == 'connected') {
         if (projects === undefined) {
           api.fetchAll(options, updateProjectStatus)
-          console.debug('fetched all projects after disconnection')
           return
         }
         updateProjectStatus(projects)

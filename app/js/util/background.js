@@ -11,7 +11,7 @@ var Background = function() {
     intercom,
 
     initIntercom = function() {
-      chrome.extension.onConnect.addListener(function(port) {
+      chrome.runtime.onConnect.addListener(function(port) {
         if (intercom) {
           intercom.disconnect()
           intercom = null
@@ -41,7 +41,12 @@ var Background = function() {
           }
 
           if (msg.type == 'projects.get') {
-            intercom.postMessage({type: 'projects.set', data: projects});
+            if (projects != null && projects.length > 0) {
+              intercom.postMessage({type: 'projects.set', data: projects});
+            } else {
+              intercom.postMessage({type: 'projects.set', data: projects});
+              fetchProjectsFromCodeship()
+            }
             return;
           }
         });
@@ -61,7 +66,10 @@ var Background = function() {
           if (intercom) intercom.postMessage(error)
           return
         } else {
-          if (intercom) intercom.postMessage({type: 'api_ok'})
+          if (intercom) {
+            intercom.postMessage({type: 'api_ok'})
+            intercom.postMessage({type: 'projects.set', data: _projects})
+          }
         }
 
         projects.reset(_projects.models)
