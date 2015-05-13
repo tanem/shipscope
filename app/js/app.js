@@ -18,7 +18,7 @@ var cacheTemplates = function() {
   },
 
   openIntercom = function() {
-    App.intercom = chrome.extension.connect({name: "shipscope intercom"});
+    App.intercom = chrome.runtime.connect({name: "shipscope intercom"});
 
     if (App.intercom) {
       App.main.show(new MainLayout());

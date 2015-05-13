@@ -11,40 +11,45 @@ var Background = function() {
     intercom,
 
     initIntercom = function() {
-      chrome.extension.onConnect.addListener(function(port) {
+      chrome.runtime.onConnect.addListener(function(port) {
         if (intercom) {
           intercom.disconnect()
           intercom = null
         }
 
-        intercom = port;
+        intercom = port
         intercom.onDisconnect.addListener(function() {
           intercom = null
         })
 
         intercom.onMessage.addListener(function(msg) {
           if (msg.type == 'options.set') {
-            options = msg.data;
+            options = msg.data
             chrome.storage.sync.set(options, function() {
               if (chrome.runtime.lastError) {
-                console.error('ERROR setting options:', options, '=>', chrome.runtime.lastError.message);
+                console.error('ERROR setting options:', options, '=>', chrome.runtime.lastError.message)
               }
-            });
+            })
             if (options && options.api_key) {
-              fetchProjectsFromCodeship();
+              fetchProjectsFromCodeship()
             }
-            return;
+            return
           }
 
           if (msg.type == 'options.get') {
-            intercom.postMessage({type: 'options.set', data: options});
+            intercom.postMessage({type: 'options.set', data: options})
           }
 
           if (msg.type == 'projects.get') {
-            intercom.postMessage({type: 'projects.set', data: projects});
-            return;
+            if (projects != null && projects.length > 0) {
+              intercom.postMessage({type: 'projects.set', data: projects})
+            } else {
+              intercom.postMessage({type: 'projects.set', data: projects})
+              fetchProjectsFromCodeship()
+            }
+            return
           }
-        });
+        })
       })
     },
 
@@ -52,7 +57,7 @@ var Background = function() {
       chrome.storage.sync.get('api_key', function(value) {
         options = value
         done()
-      });
+      })
     },
 
     fetchProjectsFromCodeship = function(done) {
@@ -61,7 +66,10 @@ var Background = function() {
           if (intercom) intercom.postMessage(error)
           return
         } else {
-          if (intercom) intercom.postMessage({type: 'api_ok'})
+          if (intercom) {
+            intercom.postMessage({type: 'api_ok'})
+            intercom.postMessage({type: 'projects.set', data: _projects})
+          }
         }
 
         projects.reset(_projects.models)
@@ -94,7 +102,7 @@ var Background = function() {
       ])
     }
   }
-};
+}
 
-var background = new Background();
-background.initialize();
+var background = new Background()
+background.initialize()

@@ -4,7 +4,7 @@ var Intercom = function() {
   return {
     intercom: function() { return intercom },
     initialize: function() {
-      intercom = chrome.extension.connect({name: "shipscope intercom"})
+      intercom = chrome.runtime.connect({name: "shipscope intercom"})
     }
   }
 };

@@ -1,7 +1,6 @@
 var CodeshipApi = (function() {
   var
     API_HOST = "https://codeship.com/api",
-    // API_HOST = "http://localhost:8080",
     PROJECT_URL = API_HOST + "/v2/projects.json",
     BUILD_URL = API_HOST + "/v1/builds.json",
 

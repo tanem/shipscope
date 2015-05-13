@@ -5,7 +5,7 @@
   "short_name": "__MSG_Shipscope__",
   "default_locale": "en",
   "description": "Get Codeship build notifications with Shipscope.",
-  "version": "1.1.101",
+  "version": "1.2",
   "icons": {
     "48": "img/shipscope_icon_48.png",
     "128": "img/shipscope_icon_128.png"
@@ -22,6 +22,7 @@
   },
   "browser_action": {
     "default_icon": "img/shipscope_icon_19.png",
+    "error_icon": "img/shipscope_icon_19_error.png",
     "default_title": "Shipscope",
     "default_popup": "popup.html"
   },

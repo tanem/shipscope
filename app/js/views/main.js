@@ -11,17 +11,17 @@ var MainLayout = Backbone.Marionette.LayoutView.extend({
   },
 
   initialize: function() {
-    Backbone.Events.on('show:project', this.onShowProject, this);
-    Backbone.Events.on('show:home', this.onShowHome, this);
+    Backbone.Events.on('show:project', this.onShowProject, this)
+    Backbone.Events.on('show:home', this.onShowHome, this)
 
     App.intercom.onMessage.addListener(function(msg) {
       if (msg.type == 'projects.set') {
         if (!msg.data) {
-          App.intercom.postMessage({type: 'options.get'});
-          return;
+          App.intercom.postMessage({type: 'options.get'})
+          return
         }
 
-        if (this.initialized) return;
+        if (this.initialized) return
 
         this.initialized = true
         // recreate backbone collection, they get lost in the intercom
@@ -37,37 +37,37 @@ var MainLayout = Backbone.Marionette.LayoutView.extend({
           this.onShowOptions()
         }
       }
-    }.bind(this));
+    }.bind(this))
 
     App.intercom.postMessage({type: 'options.get'})
     App.intercom.postMessage({type: 'projects.get'})
-    this.options = new OptionsModel();
+    this.options = new OptionsModel()
   },
 
   onShowOptions: function() {
-    this.options.once('sync', this.onShowOptions);
-    $('nav').addClass('project_view');
-    $('nav span').text(chrome.i18n.getMessage('options'));
-    $('footer').hide();
+    this.options.once('sync', this.onShowOptions)
+    $('nav').addClass('project_view')
+    $('nav span').text(chrome.i18n.getMessage('options'))
+    $('footer').hide()
 
-    this.optionsView = new OptionsView({model: this.options});
-    this.project_list.show(this.optionsView);
+    this.optionsView = new OptionsView({model: this.options})
+    this.project_list.show(this.optionsView)
   },
 
   onShowHome: function() {
     ga('send', 'event', 'popup', 'view_projects', 'launch')
-    $('nav').removeClass('project_view');
-    $('footer').show();
-    this.projectsView = new ProjectsView({collection: this.collection});
-    this.project_list.show(this.projectsView);
+    $('nav').removeClass('project_view')
+    $('footer').show()
+    this.projectsView = new ProjectsView({collection: this.collection})
+    this.project_list.show(this.projectsView)
   },
 
   onShowProject: function(projectId) {
-    var project = this.collection.get(projectId);
+    var project = this.collection.get(projectId)
 
-    $('nav').addClass('project_view');
-    $('nav span').text(project.get('repository_name'));
-    $('footer').show();
+    $('nav').addClass('project_view')
+    $('nav span').text(project.get('repository_name'))
+    $('footer').show()
 
     if (project) {
       var builds = new Builds(project.get('builds'))
@@ -76,4 +76,4 @@ var MainLayout = Backbone.Marionette.LayoutView.extend({
     }
   },
 
-});
+})
