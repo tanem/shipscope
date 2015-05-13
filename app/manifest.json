@@ -22,6 +22,7 @@
   },
   "browser_action": {
     "default_icon": "img/shipscope_icon_19.png",
+    "error_icon": "img/shipscope_icon_19_error.png",
     "default_title": "Shipscope",
     "default_popup": "popup.html"
   },

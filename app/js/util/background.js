@@ -17,39 +17,39 @@ var Background = function() {
           intercom = null
         }
 
-        intercom = port;
+        intercom = port
         intercom.onDisconnect.addListener(function() {
           intercom = null
         })
 
         intercom.onMessage.addListener(function(msg) {
           if (msg.type == 'options.set') {
-            options = msg.data;
+            options = msg.data
             chrome.storage.sync.set(options, function() {
               if (chrome.runtime.lastError) {
-                console.error('ERROR setting options:', options, '=>', chrome.runtime.lastError.message);
+                console.error('ERROR setting options:', options, '=>', chrome.runtime.lastError.message)
               }
-            });
+            })
             if (options && options.api_key) {
-              fetchProjectsFromCodeship();
+              fetchProjectsFromCodeship()
             }
-            return;
+            return
           }
 
           if (msg.type == 'options.get') {
-            intercom.postMessage({type: 'options.set', data: options});
+            intercom.postMessage({type: 'options.set', data: options})
           }
 
           if (msg.type == 'projects.get') {
             if (projects != null && projects.length > 0) {
-              intercom.postMessage({type: 'projects.set', data: projects});
+              intercom.postMessage({type: 'projects.set', data: projects})
             } else {
-              intercom.postMessage({type: 'projects.set', data: projects});
+              intercom.postMessage({type: 'projects.set', data: projects})
               fetchProjectsFromCodeship()
             }
-            return;
+            return
           }
-        });
+        })
       })
     },
 
@@ -57,7 +57,7 @@ var Background = function() {
       chrome.storage.sync.get('api_key', function(value) {
         options = value
         done()
-      });
+      })
     },
 
     fetchProjectsFromCodeship = function(done) {
@@ -102,7 +102,7 @@ var Background = function() {
       ])
     }
   }
-};
+}
 
-var background = new Background();
-background.initialize();
+var background = new Background()
+background.initialize()

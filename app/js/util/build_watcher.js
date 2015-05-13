@@ -26,8 +26,14 @@ var BuildWatcher = (function(options, api) {
           disableStats: true,
           encrypted: true
       })
-      pusher.connection.bind('state_change', function(states) {
-        getShipscopeSummary()
+      pusher.connection.bind('state_change', function() {
+        if (pusher.connection.state == 'connected') {
+          chrome.browserAction.setIcon({path: 'img/shipscope_icon_19.png'})
+          getShipscopeSummary()
+        } else {
+          chrome.browserAction.setIcon({path: 'img/shipscope_icon_19_error.png'})
+          chrome.browserAction.setBadgeText({text: ''})
+        }
       })
     },
 
@@ -74,7 +80,7 @@ var BuildWatcher = (function(options, api) {
             iconUrl: "img/shipscope_icon_" + build.get('status') + "_128.png"
           }
 
-      chrome.notifications.create(build.get('uuid'), options, onCreateNotification);
+      chrome.notifications.create(build.get('uuid'), options, onCreateNotification)
 
       isWatching[build.get('uuid')].set({status: 'notifying'})
     },
@@ -124,16 +130,11 @@ var BuildWatcher = (function(options, api) {
     },
 
     getShipscopeSummary = function(projects) {
-      if (pusher.connection.state == 'connected') {
-        if (projects === undefined) {
-          api.fetchAll(options, updateProjectStatus)
-          return
-        }
-        updateProjectStatus(projects)
-      } else {
-        chrome.browserAction.setBadgeText({text: 'X'})
-        chrome.browserAction.setBadgeBackgroundColor({color: STATUS_COLORS[Build.STATES.error]})
+      if (projects === undefined) {
+        api.fetchAll(options, updateProjectStatus)
+        return
       }
+      updateProjectStatus(projects)
     }
 
   chrome.notifications.onClicked.addListener(onNotificationClicked)
@@ -147,4 +148,4 @@ var BuildWatcher = (function(options, api) {
       return isWatching
     }
   }
-});
+})
