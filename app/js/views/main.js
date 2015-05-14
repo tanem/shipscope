@@ -10,17 +10,17 @@ var MainLayout = Backbone.Marionette.LayoutView.extend({
   },
 
   initialize: function() {
-    Backbone.Events.on('show:project', this.onShowProject, this);
-    Backbone.Events.on('show:home', this.onShowHome, this);
+    Backbone.Events.on('show:project', this.onShowProject, this)
+    Backbone.Events.on('show:home', this.onShowHome, this)
 
     App.intercom.onMessage.addListener(function(msg) {
       if (msg.type == 'projects.set') {
         if (!msg.data) {
-          App.intercom.postMessage({type: 'options.get'});
-          return;
+          App.intercom.postMessage({type: 'options.get'})
+          return
         }
 
-        if (this.initialized) return;
+        if (this.initialized) return
 
         this.initialized = true
         this.collection = new Projects(msg.data);
@@ -38,14 +38,16 @@ var MainLayout = Backbone.Marionette.LayoutView.extend({
         //   this.onShowOptions()
         // }
       }
-    }.bind(this));
+    }.bind(this))
 
     App.intercom.postMessage({type: 'projects.get'})
+<<<<<<< HEAD
     App.intercom.postMessage({type: 'options.get'})
     this.options = new OptionsModel();
   },
 
   onShowHome: function() {
+    ga('send', 'event', 'popup', 'view_projects', 'launch')
     $('nav').removeClass('project_view');
     $('footer').show();
     this.projectsView = new ProjectsView({collection: this.collection});
@@ -53,16 +55,16 @@ var MainLayout = Backbone.Marionette.LayoutView.extend({
   },
 
   onShowProject: function(projectId) {
-    var project = this.collection.get(projectId);
+    var project = this.collection.get(projectId)
 
-    $('nav').addClass('project_view');
-    $('nav span').text(project.get('repository_name'));
-    $('footer').show();
+    $('nav').addClass('project_view')
+    $('nav span').text(project.get('repository_name'))
+    $('footer').show()
 
     if (project) {
       var builds = new Builds(project.get('builds'))
       var buildsView = new BuildsView({collection: builds}, {projectId: projectId})
       this.project_list.show(buildsView)
     }
-  },
-});
+  }
+})

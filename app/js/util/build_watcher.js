@@ -1,8 +1,15 @@
 var BuildWatcher = (function(options, api) {
   var
+    STATUS_COLORS = [
+      '#feb71a',    // stopped
+      '#60cc69',    // success
+      '#fe402c',    // error
+      '#5a95e5'     // testing
+    ],
     PUSHER_APP_KEY = '1971ebf8928f03c907ed',
     PRIVATE_PROJECT = 'private-project-',
     PRIVATE_BUILD = 'private-build-',
+    UPDATE_EVENT = 'common',
     pusher,
     isWatching = {},
     projectChannels = {},
@@ -19,8 +26,15 @@ var BuildWatcher = (function(options, api) {
           disableStats: true,
           encrypted: true
       })
-      pusher.bind('pusher:subscription_succeeded', onSubscriptionSucceeded)
-      pusher.bind('pusher:subscription_error', onSubscriptionError)
+      pusher.connection.bind('state_change', function() {
+        if (pusher.connection.state == 'connected') {
+          chrome.browserAction.setIcon({path: 'img/shipscope_icon_19.png'})
+          getShipscopeSummary()
+        } else {
+          chrome.browserAction.setIcon({path: 'img/shipscope_icon_19_error.png'})
+          chrome.browserAction.setBadgeText({text: ''})
+        }
+      })
     },
 
     ellipsify = function(str, max) {
@@ -66,7 +80,7 @@ var BuildWatcher = (function(options, api) {
             iconUrl: "img/shipscope_icon_" + build.get('status') + "_128.png"
           }
 
-      chrome.notifications.create(build.get('uuid'), options, onCreateNotification);
+      chrome.notifications.create(build.get('uuid'), options, onCreateNotification)
 
       isWatching[build.get('uuid')].set({status: 'notifying'})
     },
@@ -81,14 +95,6 @@ var BuildWatcher = (function(options, api) {
       })
     },
 
-    onSubscriptionSucceeded = function() {
-      console.debug('buildWatcher.onSubscriptionSuccess')
-    },
-
-    onSubscriptionError = function(status) {
-      console.error('buildWatcher.onSubscriptionError:', status)
-    },
-
     scanProjects = function(projects) {
       projects.forEach(function(project) {
         var projectInfo = { projects: projects, projectId: project.id },
@@ -99,7 +105,7 @@ var BuildWatcher = (function(options, api) {
           channel = pusher.subscribe(projectChannel)
           projectChannels[projectChannel] = channel
 
-          channel.bind('common', onUpdate.bind(projectInfo))
+          channel.bind(UPDATE_EVENT, onUpdate.bind(projectInfo))
         }
 
         project.get('builds').forEach(function(build) {
@@ -116,18 +122,19 @@ var BuildWatcher = (function(options, api) {
       getShipscopeSummary(projects)
     },
 
-    getShipscopeSummary = function(projects) {
-      var STATUS_COLORS = [
-        '#feb71a',    // stopped
-        '#60cc69',    // success
-        '#fe402c',    // error
-        '#5a95e5'     // testing
-      ]
-
+    updateProjectStatus = function(projects) {
       var status = projects.getSummary()
 
       chrome.browserAction.setBadgeText({text: status.count.toString()})
       chrome.browserAction.setBadgeBackgroundColor({color: STATUS_COLORS[status.state]})
+    },
+
+    getShipscopeSummary = function(projects) {
+      if (projects === undefined) {
+        api.fetchAll(options, updateProjectStatus)
+        return
+      }
+      updateProjectStatus(projects)
     }
 
   chrome.notifications.onClicked.addListener(onNotificationClicked)
@@ -141,4 +148,4 @@ var BuildWatcher = (function(options, api) {
       return isWatching
     }
   }
-});
+})
