@@ -41,8 +41,6 @@ var MainLayout = Backbone.Marionette.LayoutView.extend({
     }.bind(this))
 
     App.intercom.postMessage({type: 'projects.get'})
-<<<<<<< HEAD
-    App.intercom.postMessage({type: 'options.get'})
     this.options = new OptionsModel();
   },
 
