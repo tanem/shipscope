@@ -1,9 +1,11 @@
 - name: shipscope
   type: serial
   steps:
-    - service: shipscope
+    - name: grunt headless test
+      service: shipscope
       command: grunt headless-test
-    - service: shipscope
+    - name: grunt build
+      service: shipscope
       command: grunt build
     - name: deploy to s3
       tag: master
