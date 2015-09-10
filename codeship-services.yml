@@ -1,5 +1,5 @@
-app:
+shipscope:
   build:
-    image: app
+    image: shipscope
     dockerfile_path: Dockerfile
 

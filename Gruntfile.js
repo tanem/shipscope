@@ -28,6 +28,22 @@ module.exports = function(grunt) {
       }
     },
 
+
+    shell: {
+      xvfb: {
+        command: 'Xvfb :99 -ac -screen 0 1600x1200x24',
+        options: {
+          async: true
+        }
+      }
+    },
+
+    env: {
+      xvfb: {
+        DISPLAY: ':99'
+      }
+    },
+
     uglify: {
       options: {
         sourceMap: true
@@ -56,6 +72,10 @@ module.exports = function(grunt) {
       }
     },
 
+    deploy: {
+
+    },
+
     watch: {
       files: ['app/js/**/*.js', 'app/css/**/*.css', 'app/**/*.html'],
       tasks: ['build']
@@ -67,8 +87,16 @@ module.exports = function(grunt) {
   grunt.loadNpmTasks('grunt-contrib-uglify')
   grunt.loadNpmTasks('grunt-contrib-clean')
   grunt.loadNpmTasks('grunt-contrib-watch')
+  grunt.loadNpmTasks('grunt-shell-spawn')
+  grunt.loadNpmTasks('grunt-env')
 
   grunt.registerTask('test', ['clean', 'uglify', 'karma'])
   grunt.registerTask('build', ['clean', 'uglify', 'compress'])
   grunt.registerTask('default', ['build'])
+  grunt.registerTask('headless-test', [
+    'shell:xvfb',
+    'env:xvfb',
+    'test',
+    'shell:xvfb:kill'
+  ]);
 }

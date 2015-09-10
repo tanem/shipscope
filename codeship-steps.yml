@@ -1,4 +1,11 @@
-# - service: app
-#   command: grunt test
-- service: app
-  command: grunt build
+- name: shipscope
+  type: serial
+  steps:
+    - service: shipscope
+      command: grunt headless-test
+    - service: shipscope
+      command: grunt build
+    - name: deploy to s3
+      tag: master
+      service: shipscope
+      command: grunt deploy
