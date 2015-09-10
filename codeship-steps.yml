@@ -1,4 +1,4 @@
-- service: app
-  command: grunt test
+# - service: app
+#   command: grunt test
 - service: app
   command: grunt build
