@@ -28,6 +28,8 @@ RUN apt-get install -y google-chrome-stable
 # ENV PATH $CHROMEDRIVER_DIR:$PATH
 ENV CHROME_BIN /usr/bin/google-chrome
 
+# RUN Xvfb :1 -screen 0 1600x1200x16 &
+# ENV DISPLAY :1.0
 #### end chrome install
 
 RUN mkdir /app
@@ -37,4 +39,4 @@ COPY package.json /app/
 RUN npm install
 RUN npm install -g grunt-cli
 
-COPY . /app
+ADD . /app
