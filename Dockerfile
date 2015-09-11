@@ -16,27 +16,26 @@ RUN apt-get update -y
 RUN apt-get install -y google-chrome-stable
 
 # Set up Chromedriver Environment variables
-# ENV CHROMEDRIVER_VERSION 2.19
-# ENV CHROMEDRIVER_DIR /chromedriver
-# RUN mkdir $CHROMEDRIVER_DIR
+ENV CHROMEDRIVER_VERSION 2.19
+ENV CHROMEDRIVER_DIR /chromedriver
+RUN mkdir $CHROMEDRIVER_DIR
 
 # Download and install Chromedriver
-# RUN wget -q --continue -P $CHROMEDRIVER_DIR "http://chromedriver.storage.googleapis.com/$CHROMEDRIVER_VERSION/chromedriver_linux64.zip"
-# RUN unzip $CHROMEDRIVER_DIR/chromedriver* -d $CHROMEDRIVER_DIR
+RUN wget -q --continue -P $CHROMEDRIVER_DIR "http://chromedriver.storage.googleapis.com/$CHROMEDRIVER_VERSION/chromedriver_linux64.zip"
+RUN unzip $CHROMEDRIVER_DIR/chromedriver* -d $CHROMEDRIVER_DIR
 
 # Put Chromedriver into the PATH
-# ENV PATH $CHROMEDRIVER_DIR:$PATH
-ENV CHROME_BIN /usr/bin/google-chrome
+ENV PATH $CHROMEDRIVER_DIR:$PATH
+# ENV CHROME_BIN $CHROMEDRIVER_DIR/chromedriver
 
-# RUN Xvfb :1 -screen 0 1600x1200x16 &
-# ENV DISPLAY :1.0
+RUN Xvfb :1 -screen 0 1600x1200x16 &
+ENV DISPLAY :1.0
 #### end chrome install
 
-RUN mkdir /app
 WORKDIR /app
 
-COPY package.json /app/
+COPY package.json ./
 RUN npm install
 RUN npm install -g grunt-cli
 
-ADD . /app
+COPY . ./

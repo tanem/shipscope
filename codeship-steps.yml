@@ -1,9 +1,9 @@
 - name: shipscope
   type: serial
   steps:
-    - name: grunt headless test
+    - name: grunt test
       service: shipscope
-      command: grunt headless-test
+      command: grunt test
     - name: grunt build
       service: shipscope
       command: grunt build
