@@ -9,19 +9,6 @@ RUN apt-get update && apt-get install -y \
   unzip \
   xvfb
 
-# Set up Chromedriver Environment variables
-ENV CHROMEDRIVER_VERSION 2.19
-ENV CHROMEDRIVER_DIR /chromedriver
-RUN mkdir $CHROMEDRIVER_DIR
-
-# Download and install Chromedriver
-RUN wget -q --continue -P $CHROMEDRIVER_DIR "http://chromedriver.storage.googleapis.com/$CHROMEDRIVER_VERSION/chromedriver_linux64.zip"
-RUN unzip $CHROMEDRIVER_DIR/chromedriver* -d $CHROMEDRIVER_DIR
-
-# Put Chromedriver into the PATH
-ENV PATH $CHROMEDRIVER_DIR:$PATH
-# ENV CHROME_BIN $CHROMEDRIVER_DIR/chromedriver
-
 ENV DISPLAY :99
 #### end chrome install
 
