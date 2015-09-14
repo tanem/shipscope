@@ -28,14 +28,13 @@ RUN unzip $CHROMEDRIVER_DIR/chromedriver* -d $CHROMEDRIVER_DIR
 ENV PATH $CHROMEDRIVER_DIR:$PATH
 # ENV CHROME_BIN $CHROMEDRIVER_DIR/chromedriver
 
-RUN Xvfb :1 -screen 0 1600x1200x16 &
-ENV DISPLAY :1.0
+ENV DISPLAY :99
 #### end chrome install
 
 WORKDIR /app
 
-COPY package.json ./
+ADD package.json ./package.json
 RUN npm install
 RUN npm install -g grunt-cli
 
-COPY . ./
+ADD . ./

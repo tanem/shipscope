@@ -3,7 +3,7 @@
   steps:
     - name: grunt test
       service: shipscope
-      command: grunt test
+      command: bin/test
     - name: grunt build
       service: shipscope
       command: grunt build

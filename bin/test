@@ -1,0 +1,9 @@
+#!/bin/bash
+
+set -e
+
+echo xvfb
+Xvfb :99 -ac -screen 0 2500x2500x16 &
+
+echo grunt
+grunt test
