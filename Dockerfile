@@ -1,19 +1,13 @@
 FROM node:4.0
 MAINTAINER David McGaffin <david@codeship.com>
 
-RUN apt-get update -qq
+RUN curl https://dl-ssl.google.com/linux/linux_signing_key.pub | apt-key add - && \
+  echo "deb http://dl.google.com/linux/chrome/deb/ stable main" >> /etc/apt/sources.list.d/google.list
 
-#### begin chrome install
-# We need wget to set up the PPA and xvfb to have a virtual screen and unzip to install the Chromedriver
-RUN apt-get install -y wget xvfb unzip
-
-# Set up the Chrome PPA
-RUN wget -q -O - https://dl-ssl.google.com/linux/linux_signing_key.pub | apt-key add -
-RUN echo "deb http://dl.google.com/linux/chrome/deb/ stable main" >> /etc/apt/sources.list.d/google.list
-
-# Update the package list and install chrome
-RUN apt-get update -y
-RUN apt-get install -y google-chrome-stable
+RUN apt-get update && apt-get install -y \
+  google-chrome-stable \
+  unzip \
+  xvfb
 
 # Set up Chromedriver Environment variables
 ENV CHROMEDRIVER_VERSION 2.19
