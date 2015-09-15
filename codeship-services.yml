@@ -1,12 +1,17 @@
+data:
+  image: busybox
+  volumes:
+    - ./tmp:/artifacts
 shipscope:
   build:
     image: codeship/shipscope
     dockerfile_path: Dockerfile
+  volumes_from:
+    - data
 deploy:
   build:
     image: codeship/shipscopedeployment
     dockerfile_path: Dockerfile.deploy
-  configure:
-      service: codeship/shipscope
-      command: grunt build
+  volumes_from:
+    - data
   encrypted_env_file: aws-deployment.env.encrypted
