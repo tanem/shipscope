@@ -1,13 +1,8 @@
 - name: shipscope
   type: serial
   steps:
-    - name: test
-      service: shipscope
+    - service: shipscope
       command: bin/xvfb-grunt-test
-    - name: build
-      service: shipscope
-      command: grunt build
-    - name: deploy
-      service: deploy
-      command: aws s3 cp deploy/shipscope.zip s3://codeship-shipscope-deploy
+    - service: deploy
+      command: bin/deploy
       tag: master
