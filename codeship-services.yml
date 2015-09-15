@@ -2,7 +2,7 @@ shipscope:
   build:
     image: shipscope
     dockerfile_path: Dockerfile
-awsdeployment:
+deploy:
   build:
     image: codeship/aws-deployment
     dockerfile_path: Dockerfile.deploy

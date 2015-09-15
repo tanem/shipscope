@@ -7,7 +7,7 @@
       command: grunt build
     - service: shipscope
       tag: master
-      command: grunt deploy
+      command: grunt build
     - service: deploy
       command: aws s3 cp deploy/shipscope.zip s3://codeship-shipscope-deploy
       tag: master
