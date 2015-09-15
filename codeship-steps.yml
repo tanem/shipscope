@@ -1,0 +1,8 @@
+- name: shipscope
+  type: serial
+  steps:
+    - service: shipscope
+      command: bin/xvfb-grunt-test
+    - service: deploy
+      command: bin/deploy
+      tag: master
