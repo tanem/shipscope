@@ -1,4 +1,3 @@
 FROM codeship/aws-deployment:latest
 WORKDIR /app
-#COPY ./deploy ./
-ADD . ./
+COPY ./deploy ./
