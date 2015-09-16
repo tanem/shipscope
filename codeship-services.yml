@@ -6,7 +6,7 @@ deploy:
   build:
     image: codeship/shipscopedeployment
     dockerfile_path: Dockerfile.deploy
-  configure:
-      service: codeship/shipscope
+    configure:
+      service: shipscope
       command: grunt build
   encrypted_env_file: aws-deployment.env.encrypted
