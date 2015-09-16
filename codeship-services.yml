@@ -8,5 +8,5 @@ deploy:
     dockerfile_path: Dockerfile.deploy
     configure:
       service: shipscope
-      command: grunt build
+      command: bin/build
   encrypted_env_file: aws-deployment.env.encrypted

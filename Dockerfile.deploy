@@ -8,4 +8,5 @@ RUN apk --update add \
   apk --purge del py-pip && \
   rm var/cache/apk/*
 
-  ADD . ./
+WORKDIR /app
+ADD . ./

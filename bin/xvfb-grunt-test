@@ -1,2 +1,4 @@
 #!/usr/bin/env bash
-xvfb-run grunt test
+pwd
+ls -l
+xvfb-run node_modules/.bin/grunt test

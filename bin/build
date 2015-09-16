@@ -1,0 +1,5 @@
+#!/bin/bash
+set -e
+pwd
+ls -l
+node_modules/.bin/grunt build
